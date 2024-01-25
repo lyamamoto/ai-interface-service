@@ -1,0 +1,10 @@
+Alembic Migration README
+------------------------
+
+This directory contains Alembic migration scripts for managing database schema changes.
+
+Usage:
+- Run `alembic revision --autogenerate -m "Description"` to generate a new migration script.
+- Run `alembic upgrade head` to apply all migrations to the database.
+- Run `alembic downgrade -1` to downgrade the database by one revision.
+- Customize the generated migration scripts as needed before applying them to the database.

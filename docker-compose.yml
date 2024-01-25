@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+
+  db:
+    image: postgres:latest
+    container_name: db
+    ports:
+      - "5431:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: assistant_service
+    volumes:
+      - ./pData:/var/lib/postgresql/data
+    networks:
+      - assistant
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - assistant
+
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      db:
+        condition: service_started
+      redis:
+        condition: service_started
+    networks:
+      - assistant
+
+networks:
+
+  assistant:
+    driver: bridge

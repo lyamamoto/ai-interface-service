@@ -1,0 +1,9 @@
+alembic
+flask
+flask_cors
+openai
+psycopg2-binary
+python-dotenv
+redis
+sqlalchemy
+waitress
