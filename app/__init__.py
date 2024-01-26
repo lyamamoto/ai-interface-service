@@ -14,9 +14,4 @@ session = Session()
 from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
-class AuthException(Exception):
-    def __init__(self, message="Customer not found for auth token"):
-        self.message = message
-        super().__init__(self.message)
-
 from .application import app

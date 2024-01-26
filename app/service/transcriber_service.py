@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 from app.repository import AssistantRepository, ThreadRepository
 
-class AssistantService(ABC):
+class TranscriberService(ABC):
 
     _assistant_repository = AssistantRepository()
     _thread_repository = ThreadRepository()

@@ -1,19 +1,13 @@
-from app import AuthException
-from app.model import Assistant, Thread, Customer
-from app.repository import AssistantRepository, ThreadRepository, CustomerRepository
-from app.service import AssistantService
+from app.exceptions import AuthException
+from app.model import Customer
+from app.repository import CustomerRepository
 
 auth_mapping = {"test": "03980213987"}
 
 class CoreService:
     def __init__(self):
         # Repositories
-        self.__assistant_repository = AssistantRepository()
-        self.__thread_repository = ThreadRepository()
         self.__customer_repository = CustomerRepository()
-
-        # Services
-        self.__assistant_service = AssistantService()
 
     def map_auth_token_to_customer_id(self, auth_token: str):
         # change
