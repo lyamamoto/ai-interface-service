@@ -9,6 +9,9 @@ from app.service import AssistantService, RedisService
 load_dotenv()
 
 class OpenAIAssistantService(AssistantService):
+
+    __source = "openai"
+
     def __init__(self, model: str = "gpt-3.5-turbo-1106"):
         self.__model = model
         self.__client = OpenAI(api_key=os.getenv("openai.api.key"))
@@ -19,7 +22,7 @@ class OpenAIAssistantService(AssistantService):
     def create_assistant(self, customer_id: str, name: str, context: str):
         openai_assistant = self.__client.beta.assistants.create(model=self.__model, name=name, instructions=context)
         
-        assistant = self._assistant_repository.create(str(uuid.uuid4()), customer_id, "openai", openai_assistant.id)
+        assistant = self._assistant_repository.create(str(uuid.uuid4()), customer_id, self.__source, openai_assistant.id)
         return assistant
     
     def start_thread(self, assistant_id: str, customer_id: str):
@@ -28,7 +31,7 @@ class OpenAIAssistantService(AssistantService):
         openai_thread = self.__client.beta.threads.create()
         self.__assistant_for_thread.set(openai_thread.id, assistant.source_id)
 
-        thread = self._thread_repository.create(str(uuid.uuid4()), customer_id, "openai", openai_thread.id)
+        thread = self._thread_repository.create(str(uuid.uuid4()), customer_id, self.__source, openai_thread.id)
         return thread
     
     def get_thread_messages(self, thread_id: str):

@@ -1,3 +1,4 @@
 from .customer_repository import CustomerRepository
 from .assistant_repository import AssistantRepository
 from .thread_repository import ThreadRepository
+from .transcription_repository import TranscriptionRepository

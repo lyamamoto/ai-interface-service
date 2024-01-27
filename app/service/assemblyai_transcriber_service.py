@@ -7,7 +7,7 @@ from app.service import TranscriberService
 
 load_dotenv()
 
-class OpenAITranscriberService(TranscriberService):
+class AssemblyAITranscriberService(TranscriberService):
 
     __source = "openai"
 

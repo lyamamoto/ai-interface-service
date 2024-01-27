@@ -1,39 +1,19 @@
 import uuid
 from abc import ABC, abstractmethod
 
-from app.repository import AssistantRepository, ThreadRepository
+from app.repository import TranscriptionRepository
 
 class TranscriberService(ABC):
 
-    _assistant_repository = AssistantRepository()
-    _thread_repository = ThreadRepository()
+    _transcription_repository = TranscriptionRepository()
 
     @abstractmethod
-    def create_assistant(self, customer_id: str, name: str, context: str):
+    def transcribe(self, customer_id: str, file: str):
         pass
     
-    def get_all_assistants_by_customer(self, customer_id: str):
-        return self._assistant_repository.get_by_customer_id(customer_id)
+    @abstractmethod
+    def generate_speech(self, customer_id: str, text: str):
+        pass
 
-    def get_assistant_by_name(self, customer_id: str, name: str):
-        return self._assistant_repository.get_by_name_and_customer_id(customer_id, name)
-
-    @abstractmethod
-    def start_thread(self, assistant_id: str, customer_id: str):
-        pass
-    
-    @abstractmethod
-    def get_thread_messages(self, thread_id: str):
-        pass
-    
-    @abstractmethod
-    def send_message(self, thread_id: str, content: str):
-        pass
-    
-    @abstractmethod
-    def run_thread(self, thread_id: str):
-        pass
-    
-    @abstractmethod
-    def get_run_status(self, run_id: str):
-        pass
+    def get_all_transcriptions_by_customer(self, customer_id: str):
+        return self._transcription_repository.get_by_customer_id(customer_id)

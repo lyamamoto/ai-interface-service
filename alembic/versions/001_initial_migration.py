@@ -31,7 +31,7 @@ def upgrade():
         sa.Column('source', sa.String(), nullable=True),
         sa.Column('source_id', sa.String(), nullable=True),
         sa.PrimaryKeyConstraint('id'),
-        sa.ForeignKeyConstraint(['customer_id'], ['customer.id'])
+        sa.ForeignKeyConstraint(['customer_id'], ['customers.id'])
     )
 
     op.create_table(
@@ -41,11 +41,22 @@ def upgrade():
         sa.Column('source', sa.String(), nullable=True),
         sa.Column('source_id', sa.String(), nullable=True),
         sa.PrimaryKeyConstraint('id'),
-        sa.ForeignKeyConstraint(['customer_id'], ['customer.id'])
+        sa.ForeignKeyConstraint(['customer_id'], ['customers.id'])
+    )
+
+    op.create_table(
+        'transcriptions',
+        sa.Column('id', sa.String(), nullable=False),
+        sa.Column('customer_id', sa.String(), nullable=False),
+        sa.Column('source', sa.String(), nullable=True),
+        sa.Column('source_id', sa.String(), nullable=True),
+        sa.PrimaryKeyConstraint('id'),
+        sa.ForeignKeyConstraint(['customer_id'], ['customers.id'])
     )
 
 
 def downgrade():
     op.drop_table('assistant')
     op.drop_table('thread')
+    op.drop_table('transcriptions')
     op.drop_table('customer')
