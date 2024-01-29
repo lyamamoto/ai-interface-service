@@ -1,5 +1,5 @@
 import uuid
-from sqlalchemy import Column, String, ForeignKey
+from sqlalchemy import Column, String, ForeignKey, Index
 
 from app import Base
 
@@ -10,6 +10,10 @@ class Assistant(Base):
     customer_id = Column(String, ForeignKey('customers.id'))
     source = Column(String)
     source_id = Column(String)
+
+    __table_args__ = (
+        Index("assistant_customer_id_idx", "customer_id"),
+    )
 
     def __init__(self, id: str, customer_id: str, source: str, source_id: str):
         self.id = id

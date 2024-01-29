@@ -1,4 +1,4 @@
-class Message:
+class MessageDTO:
 
     id: str
     role: str

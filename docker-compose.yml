@@ -20,7 +20,7 @@ services:
     image: redis:latest
     container_name: redis
     ports:
-      - "6379:6379"
+      - "6380:6380"
     networks:
       - assistant
 
@@ -30,7 +30,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "5000:5000"
+      - "5050:5050"
     depends_on:
       db:
         condition: service_started

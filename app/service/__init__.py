@@ -1,6 +1,5 @@
 from .redis_service import RedisService
-from .assistant_service import AssistantService
-from .transcriber_service import TranscriberService
+from .assemblyai_transcriber_service import AssemblyAITranscriberService
 from .openai_assistant_service import OpenAIAssistantService
 from .openai_transcriber_service import OpenAITranscriberService
 from .core_service import CoreService

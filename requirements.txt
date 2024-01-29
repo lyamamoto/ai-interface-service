@@ -1,4 +1,5 @@
 alembic
+assemblyai
 flask
 flask_cors
 openai

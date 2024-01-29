@@ -3,8 +3,9 @@ from openai import OpenAI
 import os
 import uuid
 
-from app.model import Message
-from app.service import AssistantService, RedisService
+from app.dto import MessageDTO
+from app.service.abstracts import AssistantService
+from app.service import RedisService
 
 load_dotenv()
 
@@ -39,7 +40,7 @@ class OpenAIAssistantService(AssistantService):
 
         openai_messages = self.__client.beta.threads.messages.list(thread.source_id)
 
-        messages = [Message(openai_message.id, openai_message.role, openai_message.content[0].text.value, openai_message.created_at) for openai_message in openai_messages]
+        messages = [MessageDTO(openai_message.id, openai_message.role, openai_message.content[0].text.value, openai_message.created_at) for openai_message in openai_messages]
         return messages
     
     def send_message(self, thread_id: str, content: str):
@@ -47,7 +48,7 @@ class OpenAIAssistantService(AssistantService):
 
         openai_message = self.__client.beta.threads.messages.create(thread.source_id, role="user", content=content)
 
-        message = Message(openai_message.id, openai_message.role, openai_message.content[0].text.value, openai_message.created_at)
+        message = MessageDTO(openai_message.id, openai_message.role, openai_message.content[0].text.value, openai_message.created_at)
         return message
     
     def run_thread(self, thread_id: str):

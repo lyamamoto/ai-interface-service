@@ -1,1 +1,2 @@
 from .assistant_controller import assistant_controller
+from .transcriber_controller import transcriber_controller

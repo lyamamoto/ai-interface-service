@@ -10,6 +10,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY .env .
 
+# TEST AUDIO FILE
+COPY test.mp3 .
+
 COPY alembic.ini .
 COPY /alembic /alembic
 
@@ -17,7 +20,9 @@ COPY /app /app
 
 COPY ./service_entrypoint.sh .
 
+RUN chmod +x ./service_entrypoint.sh
+
 ENV FLASK_APP=app
 
-EXPOSE 5000
+EXPOSE 5050
 ENTRYPOINT [ "./service_entrypoint.sh" ]

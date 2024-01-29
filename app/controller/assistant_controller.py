@@ -12,7 +12,7 @@ cors = CORS(assistant_controller)
 core_service = CoreService()
 assistant_service = OpenAIAssistantService()
 
-@assistant_controller.route('/assistant', methods=['GET'])
+@assistant_controller.route('/', methods=['GET'])
 @cross_origin()
 def get_all_assistants():
     try:
@@ -29,7 +29,7 @@ def get_all_assistants():
     except Exception as e:
         return Response(str(e), status=500)
 
-@assistant_controller.route('/assistant', methods=['POST'])
+@assistant_controller.route('/', methods=['POST'])
 @cross_origin()
 def create_service_context():
     try:
@@ -132,7 +132,7 @@ def register_new_customer():
     except Exception:
         return Response("", status=400)
 
-@assistant_controller.route('/assistant/name/<name>', methods=['GET'])
+@assistant_controller.route('/name/<name>', methods=['GET'])
 @cross_origin()
 def get_assistant_by_name(name):
     try:

@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import os
-sqlalchemy_url = f"postgresql+psycopg2://{os.getenv('postgres.user')}:{os.getenv('postgres.password')}@{os.getenv('postgres.host')}/{os.getenv('postgres.db')}"
+sqlalchemy_url = f"postgresql+psycopg2://{os.getenv('postgres.user')}:{os.getenv('postgres.password')}@{os.getenv('postgres.host')}:{os.getenv('postgres.port')}/{os.getenv('postgres.db')}"
 
 from sqlalchemy import create_engine
 engine = create_engine(sqlalchemy_url)

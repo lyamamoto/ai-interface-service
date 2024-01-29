@@ -48,8 +48,10 @@ def upgrade():
         'transcriptions',
         sa.Column('id', sa.String(), nullable=False),
         sa.Column('customer_id', sa.String(), nullable=False),
+        sa.Column('file_hash', sa.String(), nullable=False),
         sa.Column('source', sa.String(), nullable=True),
         sa.Column('source_id', sa.String(), nullable=True),
+        sa.Column('source_data', sa.Text(), nullable=True),
         sa.PrimaryKeyConstraint('id'),
         sa.ForeignKeyConstraint(['customer_id'], ['customers.id'])
     )
