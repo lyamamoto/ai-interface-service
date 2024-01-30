@@ -8,6 +8,7 @@ class AssistantRepository:
         try:
             session.add(assistant)
             session.commit()
+            session.refresh(assistant)
         except Exception:
             session.rollback()
 
@@ -30,6 +31,7 @@ class AssistantRepository:
         try:
             session.merge(assistant)
             session.commit()
+            session.refresh(assistant)
         except Exception:
             session.rollback()
 
@@ -41,5 +43,6 @@ class AssistantRepository:
         try:
             session.delete(assistant)
             session.commit()
+            session.refresh(assistant)
         except Exception:
             session.rollback()

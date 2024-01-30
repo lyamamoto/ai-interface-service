@@ -8,6 +8,7 @@ class CustomerRepository:
         try:
             session.add(customer)
             session.commit()
+            session.refresh(customer)
         except Exception:
             session.rollback()
 
@@ -26,6 +27,7 @@ class CustomerRepository:
         try:
             session.merge(customer)
             session.commit()
+            session.refresh(customer)
         except Exception:
             session.rollback()
 
@@ -37,5 +39,6 @@ class CustomerRepository:
         try:
             session.delete(customer)
             session.commit()
+            session.refresh(customer)
         except Exception:
             session.rollback()

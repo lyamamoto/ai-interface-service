@@ -8,6 +8,7 @@ class ThreadRepository:
         try:
             session.add(thread)
             session.commit()
+            session.refresh(thread)
         except Exception:
             session.rollback()
 
@@ -27,6 +28,7 @@ class ThreadRepository:
         try:
             session.merge(thread)
             session.commit()
+            session.refresh(thread)
         except Exception:
             session.rollback()
 
@@ -38,5 +40,6 @@ class ThreadRepository:
         try:
             session.delete(thread)
             session.commit()
+            session.refresh(thread)
         except Exception:
             session.rollback()

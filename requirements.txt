@@ -4,6 +4,7 @@ flask
 flask_cors
 openai
 psycopg2-binary
+pydantic
 python-dotenv
 redis
 sqlalchemy

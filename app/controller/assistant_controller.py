@@ -73,7 +73,7 @@ def get_messages(thread_id: str):
         customer_id = core_service.map_auth_token_to_customer_id(auth_token)
 
         messages = assistant_service.get_thread_messages(thread_id)
-        response_data = [message.to_json() for message in messages] # change
+        response_data = [message.model_dump_json() for message in messages] # change
         return Response(json.dumps(response_data), status=200, mimetype='application/json')
 
     except AuthException:
@@ -131,23 +131,3 @@ def register_new_customer():
 
     except Exception:
         return Response("", status=400)
-
-@assistant_controller.route('/name/<name>', methods=['GET'])
-@cross_origin()
-def get_assistant_by_name(name):
-    try:
-        auth_token = request.headers.get("Authorization")
-        customer_id = core_service.map_auth_token_to_customer_id(auth_token)
-
-        assistant = assistant_service.get_assistant_by_name(customer_id, name)
-        if assistant:
-            response_data = assistant.id
-            return Response(json.dumps(response_data), status=200, mimetype='application/json')
-        else:
-            return Response("", status=404)
-
-    except AuthException:
-        return Response("", status=401)
-
-    except Exception:
-        return Response("", status=500)

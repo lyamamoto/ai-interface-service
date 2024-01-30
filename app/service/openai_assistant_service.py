@@ -40,7 +40,7 @@ class OpenAIAssistantService(AssistantService):
 
         openai_messages = self.__client.beta.threads.messages.list(thread.source_id)
 
-        messages = [MessageDTO(openai_message.id, openai_message.role, openai_message.content[0].text.value, openai_message.created_at) for openai_message in openai_messages]
+        messages = [MessageDTO(id=openai_message.id, role=openai_message.role, body=openai_message.content[0].text.value, created_at=openai_message.created_at) for openai_message in openai_messages]
         return messages
     
     def send_message(self, thread_id: str, content: str):
@@ -48,7 +48,7 @@ class OpenAIAssistantService(AssistantService):
 
         openai_message = self.__client.beta.threads.messages.create(thread.source_id, role="user", content=content)
 
-        message = MessageDTO(openai_message.id, openai_message.role, openai_message.content[0].text.value, openai_message.created_at)
+        message = MessageDTO(id=openai_message.id, role=openai_message.role, body=openai_message.content[0].text.value, created_at=openai_message.created_at)
         return message
     
     def run_thread(self, thread_id: str):

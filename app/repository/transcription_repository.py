@@ -8,6 +8,7 @@ class TranscriptionRepository:
         try:
             session.add(transcription)
             session.commit()
+            session.refresh(transcription)
         except Exception:
             session.rollback()
 
@@ -43,6 +44,7 @@ class TranscriptionRepository:
         try:
             session.merge(transcription)
             session.commit()
+            session.refresh(transcription)
         except Exception:
             session.rollback()
 
@@ -54,5 +56,6 @@ class TranscriptionRepository:
 
             session.delete(transcription)
             session.commit()
+            session.refresh(transcription)
         except Exception:
             session.rollback()

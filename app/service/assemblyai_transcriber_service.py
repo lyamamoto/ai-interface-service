@@ -3,6 +3,7 @@ import assemblyai
 import assemblyai.api
 import hashlib
 import os
+from typing import List
 import uuid
 
 from app.service.abstracts import SpeechToTextService
@@ -46,3 +47,16 @@ class AssemblyAITranscriberService(SpeechToTextService):
             assemblyai_transcription_response = assemblyai.api.get_transcript(self.__client.http_client, transcription.source_id)
             assemblyai_transcription = assemblyai.Transcript.from_response(client=self.__client, response=assemblyai_transcription_response)
             return assemblyai_transcription
+        
+    def execute_prompt_on_transcription(self, transcription_id, prompt: str):
+        transcription = self.get_transcription(transcription_id)
+        task_response = transcription.lemur.task(prompt).response
+        return task_response
+        
+    def request_interpretation_about_transcription(self, transcription_id: str, questions: str | List[str], answer_format: str | None = None, answer_options: List[str] | None = None):
+        lemur_questions = [assemblyai.LemurQuestion(questions=question, answer_format=answer_format, answer_options=answer_options) for question in questions] if isinstance(questions, list) else assemblyai.LemurQuestion(questions=questions, answer_format=answer_format, answer_options=answer_options)
+
+        transcription = self.get_transcription(transcription_id)
+        lemur_questions_response = transcription.lemur.question(lemur_questions, max_output_size=4000, temperature=0).response
+
+        return [{ "question": response.question, "answer": response.answer } for response in lemur_questions_response]
